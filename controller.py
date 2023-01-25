@@ -1,53 +1,19 @@
-# Задание: Создать телефонный справочник с возможностью импорта и экспорта данных.
-# Модуль контроллер
-# Модуль для импорта(ввода данных)
-# Модуль для экспорта(вывод данных)
-# Строка содержит id,имя,фамилию,номер телефона,
-# комментрий - символ разделитель на выбор(можно использовать пробел или запятые) + файл с хранением этих строк
-# *Добавить сортировку по имени или по id
-# *Добавить вывод только имени и фамилии
-from import_data import import_data
-from export_data import export_data
-from print_data import print_data
-from search_data import search_data
+import view as v
+import sort_human as simh
+import import_human as imh
 
-
-
-def input_data():
-    last_name = input("Введите  номер контакта: ")
-    first_name = input("Введите фамилию: ")
-    phone_number = input("Введите имя: ")
-    proffesion = input("Введите проффессию: ")
-    return [phone_number, last_name, first_name, proffesion]
-
-
-def choice_sep():
-    sep = input("Введите разделитель: ")
-    if sep == "":
-        sep = None
-    return sep
-
-
-def choice_todo():
-    print("Доступные операции с телефонной книгой:\n\
-    1 - импорт;\n\
-    2 - экспорт;\n\
-    3 - поиск контакта.")
-    ch = input("Введите цифру: ")
-    if ch == '1':
-        sep = choice_sep()
-        import_data(input_data(), sep)
-    elif ch == '2':
-        data = export_data()
-        print_data(data)
-    else:
-        word = input("Введите данные для поиска: ")
-        data = export_data()
-        item = search_data(word, data)
-        if item != None:
-            print("Фамилия".center(20), "Имя".center(20), "Телефон".center(15), "профессия".center(30))
-            print("-"*130)
-            print(item[0].center(20), item[1].center(20), item[2].center(
-                20), item[3].center(20), item[4].center(15), item[5].center(30))
-        else:
-            print("Данные не обнаружены")
+def start():
+    while True:
+        choise = v.choise()
+        if choise == 1:
+            imh.add_human()
+        elif choise == 2:
+            v.print_table()
+        elif choise == 3:
+            v.print_only_names()
+        elif choise == 4:
+            simh.sort_names()
+        elif choise == 5:
+            simh.sort_id()
+        elif choise == 6:
+            break
